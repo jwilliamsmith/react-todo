@@ -3,12 +3,13 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const { Route, Router, IndexRoute, hashHistory } = require('react-router');
 
+const TodoApp = require('TodoApp');
 
 //App CSS
 require('style!css!sass!applicationStyles');
 
 ReactDOM.render(
-	<p>Boilerplate React Project</p>,
+	<TodoApp />,
 	document.getElementById('app')
 );
 
