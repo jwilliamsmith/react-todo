@@ -28,6 +28,5 @@ describe('TodoList', () => {
 		let todosComponents = TestUtils.scryRenderedComponentsWithType(todoList, Todo);
 
 		expect(todosComponents.length).toBe(todos.length);
-
-	})
+	});
 });
