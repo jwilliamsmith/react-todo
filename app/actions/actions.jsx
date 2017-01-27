@@ -12,12 +12,17 @@ export const addTodo = (text) => {
 		text
 	};
 }
+export const addTodos = (todos) => {
+	return {
+		type: 'ADD_TODOS',
+		todos
+	}
+}
 export const toggleShowCompleted = () => {
 	return {
 		type: 'TOGGLE_SHOW_COMPLETED'
 	}
 }
-
 export const toggleTodo = (id) => {
 	return {
 		type: 'TOGGLE_TODO',
