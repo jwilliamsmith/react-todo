@@ -1,9 +1,10 @@
 'use strict';
 
 const React = require('react');
-const Todo = require('Todo');
+const {connect} = require('react-redux');
+import Todo from 'Todo';
 
-const TodoList = React.createClass({
+export const TodoList = React.createClass({
 	render: function () {
 		let {todos} = this.props,
 			renderTodos = () => {
@@ -14,7 +15,7 @@ const TodoList = React.createClass({
 				}
 				return todos.map(t => {
 					return (
-						<Todo key={t.id} {...t} onToggle={this.props.onToggle} />
+						<Todo key={t.id} {...t}  />
 					);
 				})
 			};
@@ -27,4 +28,10 @@ const TodoList = React.createClass({
 	}
 });
 
-module.exports = TodoList;
+export default connect(
+	(state) => {
+		return {
+			todos: state.todos
+		}
+	}
+)(TodoList);

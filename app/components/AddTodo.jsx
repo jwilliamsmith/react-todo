@@ -1,14 +1,17 @@
 'use strict';
 
 const React = require('react');
+const {connect} = require('react-redux');
+const actions = require('actions');
 
-const AddTodo = React.createClass({
+export const AddTodo = React.createClass({
 	handleSubmit: function(evt) {
 		evt.preventDefault();
+		let {dispatch} = this.props;
 		let todoText = this.refs.newTodo.value;
 		if (todoText) {
 			this.refs.newTodo.value = '';
-			this.props.onAddTodo(todoText);
+			dispatch(actions.addTodo(todoText));
 		} else {
 			this.refs.newTodo.focus();
 		}
@@ -25,4 +28,4 @@ const AddTodo = React.createClass({
 	}
 });
 
-module.exports = AddTodo;
+export default connect()(AddTodo);

@@ -1,6 +1,7 @@
 'use strict'
 const React = require('react');
 const ReactDOM = require('react-dom');
+const {Provider} = require('react-redux');
 const { Route, Router, IndexRoute, hashHistory } = require('react-router');
 
 const TodoApp = require('TodoApp');
@@ -18,7 +19,9 @@ store.dispatch(actions.toggleShowCompleted());
 require('style!css!sass!applicationStyles');
 
 ReactDOM.render(
-	<TodoApp />,
+	<Provider store={store}>
+		<TodoApp />
+	</Provider>,
 	document.getElementById('app')
 );
 
