@@ -12,9 +12,6 @@ store.subscribe(() => {
 	console.log('New state', store.getState());
 });
 
-store.dispatch(actions.addTodo('Clean up the yard'));
-store.dispatch(actions.toggleShowCompleted());
-
 //App CSS
 require('style!css!sass!applicationStyles');
 
