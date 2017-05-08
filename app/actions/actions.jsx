@@ -40,6 +40,25 @@ export const addTodos = (todos) => {
 		todos
 	}
 }
+export const startAddTodos = () => {
+	return (dispatch, getState) => {
+		let todos;
+		let todosRef = fbref.child('todos');
+		return todosRef.once('value').then(snapshot => {
+			let todos = snapshot.val() || {},
+					parsedTodos = [],
+					keys = Object.keys(todos)
+			keys.forEach(key => {
+				let todo = {
+							id: key,
+							...todos[key]
+				};
+				parsedTodos.push(todo);
+			})
+			dispatch(addTodos(parsedTodos));
+		});
+	}
+}
 export const toggleShowCompleted = () => {
 	return {
 		type: 'TOGGLE_SHOW_COMPLETED'

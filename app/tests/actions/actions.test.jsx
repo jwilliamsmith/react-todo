@@ -81,16 +81,33 @@ describe('Actions', () => {
 	describe('Tests with firebase todos', () => {
 		let testTodoRef;
 		beforeEach((done) => {
-			testTodoRef = fbref.child('todos').push();
-			testTodoRef.set({
-				text: 'More shit to do',
-				completed: false,
-				createdAt: 654321
-			}).then(() => done());
+			let todosRef = fbref.child('todos');
+			todosRef.remove().then(() => {
+				testTodoRef = fbref.child('todos').push();
+				return testTodoRef.set({
+					text: 'More shit to do',
+					completed: false,
+					createdAt: 654321
+				})
+			})
+			.then(() => done())
+			.catch(done);
 		});
 		afterEach((done) => {
 			testTodoRef.remove().then(() => done());
 		});
+
+		it('should return todos from firebase on startAddTodos', (done) => {
+			const store = createMockStore({});
+			const action = actions.startAddTodos();
+			store.dispatch(action).then(() => {
+				const mockActions = store.getActions();
+				expect(mockActions[0].type).toEqual('ADD_TODOS');
+				expect(mockActions.length).toEqual(1);
+				expect(mockActions[0].todos[0].text).toEqual('More shit to do');
+				done();
+			}).catch(done);
+		})
 
 		it('should toggle todo and dispatch UPDATE_TODO', (done) => {
 			const store = createMockStore({});
