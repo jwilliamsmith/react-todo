@@ -1,6 +1,6 @@
 'use strict';
 
-import firebase, {fbref} from 'app/firebase/';
+import firebase, {fbref, githubProvider} from 'app/firebase/';
 import moment from 'moment';
 
 export const setSearchText = (searchText) => {
@@ -83,4 +83,23 @@ export const startToggleTodo = (id, completed) => {
 			dispatch(updateTodo(id, updates));
 		});
 	};
+}
+export const startLogin = () => {
+	return (dispatch, getState) => {
+		return firebase.auth().signInWithPopup(githubProvider)
+			.then((result) => {
+				console.log('auth worked', result);
+			}, (error) => {
+				console.log('auth failed', error);
+			});
+	}
+}
+
+export const startLogout = () => {
+	return (dispatch, getState) => {
+		return firebase.auth().signOut()
+			.then(() => {
+				console.log('logged out')
+			})
+	}		
 }
