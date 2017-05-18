@@ -37,7 +37,8 @@ export const startAddTodo = (text) => {
 					createdAt: moment().unix(),
 					completedAt: null
 				},
-				todoRef = fbref.child('todos').push(todo);
+				uid = getState().auth.uid,
+				todoRef = fbref.child(`users/${uid}/todos`).push(todo);
 		return todoRef.then(() => {
 			dispatch(addTodo({
 				...todo,
@@ -55,8 +56,9 @@ export const addTodos = (todos) => {
 }
 export const startAddTodos = () => {
 	return (dispatch, getState) => {
-		let todos;
-		let todosRef = fbref.child('todos');
+		let todos,
+				uid = getState().auth.uid,
+				todosRef = fbref.child(`users/${uid}/todos`);
 		return todosRef.once('value').then(snapshot => {
 			let todos = snapshot.val() || {},
 					parsedTodos = [],
@@ -87,11 +89,9 @@ export const updateTodo = (id, updates) => {
 
 export const startToggleTodo = (id, completed) => {
 	return (dispatch, getState) => {
-		let todoRef = fbref.child(`todos/${id}`);
-		let updates = {
-			completed,
-			completedAt: completed ? moment().unix() : null
-		};
+		let uid = getState().auth.uid,
+				todoRef = fbref.child(`users/${uid}/todos/${id}`),
+				updates = {completed, completedAt: completed ? moment().unix() : null};
 		return todoRef.update(updates).then(() => {
 			dispatch(updateTodo(id, updates));
 		});
