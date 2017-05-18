@@ -1,8 +1,18 @@
 'use strict';
-
-
 const moment = require('moment');
 
+export const authReducer = (state = {}, action) => {
+	switch (action.type) {
+		case 'LOGIN':
+			return {
+					uid: action.uid
+			};
+		case 'LOGOUT': 
+			return {};
+		default:
+			return state;
+	}
+}
 
 export const searchTextReducer = (state = '', action) => {
 	switch (action.type) {

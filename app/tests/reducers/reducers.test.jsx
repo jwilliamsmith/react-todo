@@ -5,6 +5,24 @@ const reducers = require('reducers');
 const df = require('deep-freeze-strict');
 
 describe('Reducers', () => {
+	describe('authReducer', () => {
+		it('should login user', () => {
+			let action = {
+				type: 'LOGIN',
+				uid: '1234'
+			},
+			res = reducers.authReducer(df({}), df(action));
+			expect(res.uid).toBe(action.uid);
+		});
+		it('should logout user', () => {
+			let action = {
+				type: 'LOGOUT'
+			},
+			data = {uid: '1234'},
+			res = reducers.authReducer(df(data), df(action));
+			expect(res).toEqual({});
+		});
+	});
 	describe('searchTextReducer', () => {
 		it('should set search text', () => {
 			let action = {

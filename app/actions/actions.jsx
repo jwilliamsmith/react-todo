@@ -16,6 +16,19 @@ export const addTodo = (todo) => {
 	};
 }
 
+export const login = (uid) => {
+	return {
+		type: 'LOGIN',
+		uid
+	}
+}
+
+export const logout = () => {
+	return {
+		type: 'LOGOUT'
+	}
+}
+
 export const startAddTodo = (text) => {
 	return (dispatch, getState) => {
 		let todo = 	{

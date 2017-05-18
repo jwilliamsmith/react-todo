@@ -11,6 +11,14 @@ const actions = require('actions');
 const createMockStore = configMockStore([thunk]);
 
 describe('Actions', () => {
+	it('should generate a login action', () => {
+		let action = {
+			type: 'LOGIN',
+			uid: '12345'
+		},
+		res =actions.login(action.uid);
+		expect(res).toEqual(action);
+	});
 	it('should generate search text action', () => {
 		let action = {
 				type: 'SET_SEARCH_TEXT',
