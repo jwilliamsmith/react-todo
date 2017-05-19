@@ -76,8 +76,7 @@ describe('Reducers', () => {
 			expect(res[0].completedAt).toEqual(updates.completedAt);
 			expect(res[0].text).toEqual(todo.text);
 		});
-	});
-	it('should add existing todos', () => {
+		it('should add existing todos', () => {
 		let todos = [{
 					id: '111',
 					text: 'Something goes here.',
@@ -92,5 +91,21 @@ describe('Reducers', () => {
 				res = reducers.todosReducer(df([]), df(action));
 				expect(res.length).toEqual(1);
 				expect(res[0]).toEqual(todos[0]);		
-	})
+		});
+		it('should clear local todos on LOGOUT', () => {
+			let todos = [{
+						id: '111',
+						text: 'Something goes here.',
+						completed: false,
+						completedAt: undefined,
+						createdAt: 3300
+					}],
+					action = {
+						type: 'LOGOUT',
+					},
+					res = reducers.todosReducer(df(todos), df(action));
+					expect(res.length).toEqual(0);			
+		});
+	});
+
 });
